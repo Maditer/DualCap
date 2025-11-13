@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_main">
+
+    <!-- 顶部标题栏 - 现代化设计 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:paddingStart="24dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="双屏截屏助手"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_text"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <!-- 服务开关卡片 - 现代化设计 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_service"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/background_card"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/service_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="开启截屏服务"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintEnd_toStartOf="@id/service_switch"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/service_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        app:track="@drawable/switch_track"
+                        app:thumbTint="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/service_title" />
+
+                    <TextView
+                        android:id="@+id/service_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="开启后，可以在任意应用内，从副屏底部上滑，进行截屏操作"
+                        android:textSize="13sp"
+                        android:textColor="@color/secondary_text"
+                        android:lineSpacingMultiplier="1.3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/service_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- 功能设置组标题 -->
+            <TextView
+                android:id="@+id/section_title_features"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="功能配置"
+                android:textSize="14sp"
+                android:textColor="@color/tertiary_text"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="4dp"
+                app:layout_constraintTop_toBottomOf="@id/card_service" />
+
+            <!-- 功能列表卡片 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_features"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/background_card"
+                app:layout_constraintTop_toBottomOf="@id/section_title_features">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/feature_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/item_feature" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- 高级设置组标题 -->
+            <TextView
+                android:id="@+id/section_title_advanced"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="参数设置"
+                android:textSize="14sp"
+                android:textColor="@color/tertiary_text"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="4dp"
+                app:layout_constraintTop_toBottomOf="@id/card_features" />
+
+            <!-- 截屏音效开关卡片 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_sound_effect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/background_card"
+                app:layout_constraintTop_toBottomOf="@id/section_title_advanced">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/sound_effect_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="截屏时播放咔嚓音效"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintEnd_toStartOf="@id/sound_effect_switch"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sound_effect_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:track="@drawable/switch_track"
+                        app:thumbTint="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/sound_effect_title"
+                        app:layout_constraintBottom_toBottomOf="@id/sound_effect_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- 悬浮窗高度设置卡片 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="0dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/background_card"
+                app:layout_constraintTop_toBottomOf="@id/card_sound_effect">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/overlay_height_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="悬浮窗高度"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintEnd_toStartOf="@id/overlay_height_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/overlay_height_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/primary_color"
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBaseline_toBaselineOf="@id/overlay_height_title" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/overlay_height_slider"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/overlay_height_title"
+                        app:trackColorActive="@color/primary_color"
+                        app:trackColorInactive="@color/divider"
+                        app:thumbColor="@color/primary_color"
+                        app:haloColor="@color/primary_light"
+                        app:trackHeight="4dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- 双屏截屏间隔设置卡片 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_delay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/background_card"
+                app:layout_constraintTop_toBottomOf="@id/card_height">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/screenshot_delay_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="双屏截屏间隔"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintEnd_toStartOf="@id/screenshot_delay_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/screenshot_delay_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1000ms"
+                        android:textSize="15sp"
+                        android:textColor="@color/primary_color"
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBaseline_toBaselineOf="@id/screenshot_delay_title" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/screenshot_delay_slider"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/screenshot_delay_title"
+                        app:trackColorActive="@color/primary_color"
+                        app:trackColorInactive="@color/divider"
+                        app:thumbColor="@color/primary_color"
+                        app:haloColor="@color/primary_light"
+                        app:trackHeight="4dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- 在任务管理器中隐藏设置卡片 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_hide_from_recents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/background_card"
+                app:layout_constraintTop_toBottomOf="@id/card_delay">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/hide_from_recents_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="在任务管理器中隐藏"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintEnd_toStartOf="@id/hide_from_recents_switch"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/hide_from_recents_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:track="@drawable/switch_track"
+                        app:thumbTint="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hide_from_recents_title"
+                        app:layout_constraintBottom_toBottomOf="@id/hide_from_recents_title" />
+
+                    <TextView
+                        android:id="@+id/hide_from_recents_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="请先在任务管理器中下滑锁定，再打开此开关。可以降低应用被杀的概率"
+                        android:textSize="14sp"
+                        android:textColor="@color/secondary_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hide_from_recents_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- 使用说明 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_instructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="4dp"
+                app:layout_constraintTop_toBottomOf="@id/card_hide_from_recents">
+
+                    <TextView
+                        android:id="@+id/instructions_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="使用说明"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/instructions_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="1. 开启‘截屏服务’开关打开时，手势功能生效。运行中通知栏会提示‘双屏截屏助手’正在其他应用上层显示，如果觉得打扰可以长按并‘关闭通知’\n2. 可以自由开启‘功能设置’里的功能，拖拽左侧进行排序。副屏底部的颜色与功能设置对应，从哪个位置上滑，就执行哪个功能\n3. 进入任务管理器，下滑应用卡片，锁定应用；然后打开设置页的‘在任务管理器中隐藏’，应用会更稳定。如果进程被杀了，就打开应用重新授权一下‘无障碍’权限"
+                        android:textSize="13sp"
+                        android:lineSpacingMultiplier="1.6"
+                        android:textColor="@color/secondary_text"
+                        app:layout_constraintTop_toBottomOf="@id/instructions_title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

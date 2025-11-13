@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- 应用主颜色 - 现代化设计 -->
+    <color name="background_main">#F0F1F2</color>
+    <color name="background_card">#FFFFFF</color>
+    <color name="primary_text">#1A1A1A</color>
+    <color name="secondary_text">#666666</color>
+    <color name="tertiary_text">#999999</color>
+    
+    <!-- 主题色 -->
+    <color name="primary_color">#2196F3</color>
+    <color name="primary_light">#64B5F6</color>
+    <color name="primary_dark">#1976D2</color>
+    
+    <!-- 功能区域颜色 -->
+    <color name="capture_main">#616AE5</color>
+    <color name="capture_sub">#FAD355</color>
+    <color name="capture_both">#62D256</color>
+    <color name="capture_home">#4E5969</color>
+    <color name="preview_overlay">#80FFC107</color>
+    
+    <!-- 分隔线和边框 -->
+    <color name="divider">#E0E0E0</color>
+    <color name="border_light">#F5F5F5</color>
+    
+    <!-- 开关颜色 -->
+    <color name="switch_track_on">#2196F3</color>
+    <color name="switch_track_off">#BDBDBD</color>
+    <color name="switch_thumb_on">#FFFFFF</color>
+    <color name="switch_thumb_off">#FFFFFF</color>
+</resources>

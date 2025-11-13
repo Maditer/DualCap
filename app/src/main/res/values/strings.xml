@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">双屏截屏助手</string>
+    <string name="app_name_settings">-双屏截屏助手</string>
+    <string name="app_slogan">双屏截图工具</string>
+    <string name="app_description">高效的双屏设备截图解决方案</string>
+    <string name="permission_required_title">权限申请</string>
+    <string name="permission_required_desc">需要以下权限才能正常使用应用</string>
+    <string name="permission_window_title">悬浮窗权限</string>
+    <string name="permission_window_desc">允许应用显示悬浮窗，用于手势操作</string>
+    <string name="permission_accessibility_title">无障碍服务</string>
+    <string name="permission_accessibility_desc">允许应用执行屏幕截图操作</string>
+    <string name="permission_granted">已授予</string>
+    <string name="permission_not_granted">未授予</string>
+    <string name="button_go_settings">去设置</string>
+    <string name="service_enabled">服务已开启</string>
+    <string name="service_disabled">服务已关闭</string>
+    <string name="overlay_height">悬浮窗高度</string>
+    <string name="instructions_title">使用说明</string>
+    <string name="instructions_text">1. 开启‘截屏服务’开关打开时，手势功能生效。运行中通知栏会提示‘双屏截屏助手’正在其他应用上层显示，如果觉得打扰可以长按并‘关闭通知’
+2. 可以自由开启‘功能设置’里的功能，拖拽左侧进行排序。副屏底部的颜色与功能设置对应，从哪个位置上滑，就执行哪个功能
+3. 进入任务管理器，下滑应用卡片，锁定应用；然后打开设置页的‘在任务管理器中隐藏’，应用会更稳定。如果进程被杀了，就打开应用重新授权一下‘无障碍’权限</string>
+    <string name="accessibility_service_description">双屏截图工具需要无障碍服务权限来执行屏幕截图操作。此服务不会收集或传输您的个人数据。</string>
+</resources>
