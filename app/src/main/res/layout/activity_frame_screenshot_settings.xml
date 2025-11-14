@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_main">
+
+    <!-- 标题栏 -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/background_main"
+        android:elevation="0dp"
+        app:titleTextColor="@color/primary_text"
+        app:navigationIcon="@drawable/ic_back"
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:title="@string/frame_screenshot_title"
+        tools:targetApi="lollipop" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="40dp">
+
+            <!-- 使用套壳截屏开关卡片 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/enable_frame_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/background_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/enable_frame_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enable_frame_screenshot"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintEnd_toStartOf="@id/enable_frame_switch"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/enable_frame_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:track="@drawable/switch_track"
+                        app:thumbTint="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/enable_frame_title"
+                        app:layout_constraintBottom_toBottomOf="@id/enable_frame_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 选择机身颜色卡片 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/color_select_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/background_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/color_select_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_frame_color"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintEnd_toStartOf="@id/color_select_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/color_select_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/frame_color_black"
+                        android:textSize="16sp"
+                        android:textColor="@color/primary_text"
+                        android:layout_marginEnd="4dp"
+                        app:layout_constraintEnd_toStartOf="@id/color_select_arrow"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/color_select_arrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_menu"
+                        app:tint="@color/secondary_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 图像质量设置卡片 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/image_quality_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/background_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/image_quality_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/image_quality"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintEnd_toStartOf="@id/image_quality_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/image_quality_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textSize="15sp"
+                        android:textColor="@color/primary_color"
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBaseline_toBaselineOf="@id/image_quality_title" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/image_quality_slider"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:valueFrom="6"
+                        android:valueTo="10"
+                        android:value="10"
+                        android:stepSize="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/image_quality_title"
+                        app:trackColorActive="@color/primary_color"
+                        app:trackColorInactive="@color/divider"
+                        app:thumbColor="@color/primary_color"
+                        app:haloColor="@color/primary_light"
+                        app:trackHeight="4dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

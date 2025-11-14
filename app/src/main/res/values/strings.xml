@@ -20,4 +20,13 @@
 2. 可以自由开启‘功能设置’里的功能，拖拽左侧进行排序。副屏底部的颜色与功能设置对应，从哪个位置上滑，就执行哪个功能
 3. 进入任务管理器，下滑应用卡片，锁定应用；然后打开设置页的‘在任务管理器中隐藏’，应用会更稳定。如果进程被杀了，就打开应用重新授权一下‘无障碍’权限</string>
     <string name="accessibility_service_description">双屏截图工具需要无障碍服务权限来执行屏幕截图操作。此服务不会收集或传输您的个人数据。</string>
+    <!-- 套壳截屏 -->
+    <string name="frame_screenshot_title">套壳截屏</string>
+    <string name="enable_frame_screenshot">使用套壳截屏</string>
+    <string name="select_frame_color">选择机身颜色</string>
+    <string name="frame_color_black">黑色</string>
+    <string name="frame_color_white">白色</string>
+    <string name="frame_color_grey">灰彩</string>
+    <string name="frame_color_purple">紫透</string>
+    <string name="image_quality">图像质量</string>
 </resources>

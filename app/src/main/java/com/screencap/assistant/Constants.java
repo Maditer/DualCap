@@ -17,6 +17,9 @@ public class Constants {
     public static final String KEY_SCREENSHOT_DELAY = "screenshot_delay";
     public static final String KEY_HIDE_FROM_RECENTS = "hide_from_recents";
     public static final String KEY_SOUND_EFFECT_ENABLED = "sound_effect_enabled";
+    public static final String KEY_FRAME_SCREENSHOT_ENABLED = "frame_screenshot_enabled"; // 套壳截屏开关
+    public static final String KEY_FRAME_COLOR_INDEX = "frame_color_index"; // 机身颜色选择
+    public static final String KEY_FRAME_IMAGE_QUALITY = "frame_image_quality"; // 套壳截屏图像质量
     
     // 默认值
     public static final boolean DEFAULT_SERVICE_ENABLED = false;
@@ -26,6 +29,11 @@ public class Constants {
     public static final int DEFAULT_SCREENSHOT_DELAY = 329; // 默认329ms
     public static final boolean DEFAULT_HIDE_FROM_RECENTS = false;
     public static final boolean DEFAULT_SOUND_EFFECT_ENABLED = true; // 默认开启截屏音效
+    public static final boolean DEFAULT_FRAME_SCREENSHOT_ENABLED = false; // 默认关闭套壳截屏
+    public static final int DEFAULT_FRAME_COLOR_INDEX = 0; // 默认黑色机身
+    public static final int DEFAULT_FRAME_IMAGE_QUALITY = 10; // 默认图像质量10(对应PNG格式100%)
+    public static final int MIN_FRAME_IMAGE_QUALITY = 6; // 最小图像质量6
+    public static final int MAX_FRAME_IMAGE_QUALITY = 10; // 最大图像质量10
     public static final int MIN_SCREENSHOT_DELAY = 0;        // 最小0ms
     public static final int MAX_SCREENSHOT_DELAY = 1000;     // 最大1000ms
     

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +39,8 @@ public class SettingsActivity extends BaseActivity {
     private TextView mScreenshotDelayText;
     private SwitchCompat mHideFromRecentsSwitch;
     private SwitchCompat mSoundEffectSwitch;
+    private CardView mFrameScreenshotCard;
+    private TextView mFrameScreenshotStatus;
     private FeatureAdapter mAdapter;
     private List<FeatureItem> mFeatureItems;
 
@@ -79,6 +82,9 @@ public class SettingsActivity extends BaseActivity {
         mServiceSwitch.setChecked(isEnabled);
         updateUIState(isEnabled);
         
+        // 更新套壳截屏状态显示
+        updateFrameScreenshotStatus();
+        
         // 如果服务开启，通知悬浮窗服务进入预览模式
         if (isEnabled) {
             sendPreviewModeBroadcast(true);
@@ -119,6 +125,8 @@ public class SettingsActivity extends BaseActivity {
         mScreenshotDelayText = findViewById(R.id.screenshot_delay_text);
         mHideFromRecentsSwitch = findViewById(R.id.hide_from_recents_switch);
         mSoundEffectSwitch = findViewById(R.id.sound_effect_switch);
+        mFrameScreenshotCard = findViewById(R.id.card_frame_screenshot);
+        mFrameScreenshotStatus = findViewById(R.id.frame_screenshot_status);
 
         mFeatureList.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -272,6 +280,15 @@ public class SettingsActivity extends BaseActivity {
                 PreferenceUtil.saveSoundEffectEnabled(SettingsActivity.this, isChecked);
             }
         });
+
+        // 套壳截屏设置卡片点击事件
+        mFrameScreenshotCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, FrameScreenshotSettingsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -379,6 +396,16 @@ public class SettingsActivity extends BaseActivity {
     private void sendReloadConfigBroadcast() {
         Intent intent = new Intent(Constants.ACTION_RELOAD_CONFIG);
         sendBroadcast(intent);
+    }
+
+    /**
+     * 更新套壳截屏状态显示
+     */
+    private void updateFrameScreenshotStatus() {
+        boolean isEnabled = PreferenceUtil.getEnableFrameScreenshot(this);
+        if (mFrameScreenshotStatus != null) {
+            mFrameScreenshotStatus.setText(isEnabled ? "已开启" : "未开启");
+        }
     }
 
     /**

@@ -45,7 +45,14 @@
             android:name=".PermissionGuideActivity"
             android:exported="false"
             android:excludeFromRecents="false" />
-            
+
+        <!-- 套壳截屏设置Activity -->
+        <activity
+            android:name=".FrameScreenshotSettingsActivity"
+            android:exported="false"
+            android:excludeFromRecents="false"
+            android:theme="@style/Theme.双屏截屏助手" />
+
         <!-- 设置Activity - 设为启动页 -->
         <activity
             android:name=".SettingsActivity"

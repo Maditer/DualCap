@@ -291,9 +291,24 @@ public class CaptureService extends AccessibilityService {
 
         // 第五步: 拼接两张截图
         Log.i(TAG, "步骤4: 开始拼接双屏截图");
-        Bitmap combinedBitmap = combineBitmapsVertically(mainScreenBitmap, subScreenBitmap);
+        Bitmap combinedBitmap = null;
+        boolean useFrame = PreferenceUtil.getEnableFrameScreenshot(this);
+        
+        if (useFrame) {
+            combinedBitmap = combineBitmapsWithFrame(mainScreenBitmap, subScreenBitmap);
+        } else {
+            combinedBitmap = combineBitmapsVertically(mainScreenBitmap, subScreenBitmap);
+        }
+        
         if (combinedBitmap != null) {
-            File savedFile = saveBitmap(combinedBitmap, "both");
+            File savedFile;
+            if (useFrame) {
+                // 套壳截图使用带质量参数的保存方法
+                savedFile = saveBitmapWithQuality(combinedBitmap, "both");
+            } else {
+                // 普通双屏截图使用默认PNG格式
+                savedFile = saveBitmap(combinedBitmap, "both");
+            }
             showNotification("双屏已截取", savedFile);
             Log.i(TAG, "双屏截图完成: " + combinedBitmap.getWidth() + "x" + combinedBitmap.getHeight());
             // 释放临时位图
@@ -409,6 +424,89 @@ public class CaptureService extends AccessibilityService {
     }
 
     /**
+     * 套壳拼接两个位图 - 按照指定位置和尺寸组合
+     */
+    private Bitmap combineBitmapsWithFrame(Bitmap mainScreen, Bitmap subScreen) {
+        try {
+            Log.i(TAG, "开始套壳拼接位图");
+            Log.i(TAG, "主屏位图: " + mainScreen.getWidth() + "x" + mainScreen.getHeight());
+            Log.i(TAG, "副屏位图: " + subScreen.getWidth() + "x" + subScreen.getHeight());
+            
+            // 如果位图是HARDWARE格式,需要转换为ARGB_8888才能创建可变位图
+            Bitmap mainBitmap = mainScreen;
+            Bitmap subBitmap = subScreen;
+            
+            if (mainScreen.getConfig() == Bitmap.Config.HARDWARE) {
+                mainBitmap = mainScreen.copy(Bitmap.Config.ARGB_8888, false);
+            }
+            
+            if (subScreen.getConfig() == Bitmap.Config.HARDWARE) {
+                subBitmap = subScreen.copy(Bitmap.Config.ARGB_8888, false);
+            }
+            
+            // 创建2400x2900的空画布
+            Bitmap combined = Bitmap.createBitmap(2400, 2900, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(combined);
+            
+            // 缩放主屏图像到1920x1080
+            Bitmap scaledMainBitmap = Bitmap.createScaledBitmap(mainBitmap, 1920, 1080, true);
+            // 绘制主屏图像 - 位置:x=240,y=180
+            canvas.drawBitmap(scaledMainBitmap, 240, 180, null);
+            Log.i(TAG, "主屏已缩放并绘制到位置: (240, 180)");
+            scaledMainBitmap.recycle();
+            
+            // 缩放副屏图像到1090x950
+            Bitmap scaledSubBitmap = Bitmap.createScaledBitmap(subBitmap, 1090, 950, true);
+            canvas.drawBitmap(scaledSubBitmap, 655, 1538, null);
+            Log.i(TAG, "副屏已缩放并绘制到位置: (655, 1538)");
+            scaledSubBitmap.recycle();
+            
+            // 根据选择的机身颜色覆盖机身图片
+            int colorIndex = PreferenceUtil.getFrameColorIndex(this);
+            int frameResId = R.drawable.black; // 默认黑色
+            
+            switch (colorIndex) {
+                case 0: // 黑色
+                    frameResId = R.drawable.black;
+                    break;
+                case 1: // 白色
+                    frameResId = R.drawable.white;
+                    break;
+                case 2: // 灰彩
+                    frameResId = R.drawable.grey;
+                    break;
+                case 3: // 紫透
+                    frameResId = R.drawable.purple;
+                    break;
+            }
+            
+            // 绘制机身图片
+            // 图片已放在drawable-nodpi文件夹，不会被系统自动缩放
+            Bitmap frameBitmap = android.graphics.BitmapFactory.decodeResource(getResources(), frameResId);
+            
+            // 确保机身图片尺寸正确（应该是2400x2900）
+            Log.i(TAG, "机身图片加载尺寸: " + frameBitmap.getWidth() + "x" + frameBitmap.getHeight());
+            if (frameBitmap.getWidth() == 2400 && frameBitmap.getHeight() == 2900) {
+                canvas.drawBitmap(frameBitmap, 0, 0, null);
+                Log.i(TAG, "机身图片已绘制: " + frameResId + " (原始尺寸: 2400x2900)");
+            } else {
+                Log.w(TAG, "机身图片尺寸不匹配: " + frameBitmap.getWidth() + "x" + frameBitmap.getHeight() + ", 期望: 2400x2900");
+                // 如果尺寸不对，强制缩放到2400x2900
+                Bitmap scaledFrameBitmap = Bitmap.createScaledBitmap(frameBitmap, 2400, 2900, true);
+                canvas.drawBitmap(scaledFrameBitmap, 0, 0, null);
+                scaledFrameBitmap.recycle();
+            }
+            frameBitmap.recycle();
+            
+            Log.i(TAG, "套壳拼接成功: 2400x2900");
+            return combined;
+        } catch (Exception e) {
+            Log.e(TAG, "套壳拼接失败: " + e.getMessage(), e);
+            return null;
+        }
+    }
+
+    /**
      * 保存位图到文件
      * @return 保存的文件对象,失败返回null
      */
@@ -449,6 +547,64 @@ public class CaptureService extends AccessibilityService {
             }
         } catch (Exception e) {
             Log.e(TAG, "保存截图失败: " + e.getMessage(), e);
+            showNotification("保存失败", null);
+        } finally {
+            // 释放位图资源
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
+        }
+        return savedFile;
+    }
+    
+    /**
+     * 保存套壳截图到文件,使用用户设置的图像质量
+     * @return 保存的文件对象,失败返回null
+     */
+    private File saveBitmapWithQuality(Bitmap bitmap, String suffix) {
+        File savedFile = null;
+        try {
+            // 使用 Pictures 目录下的自定义文件夹
+            File picturesDir = android.os.Environment.getExternalStoragePublicDirectory(
+                    android.os.Environment.DIRECTORY_PICTURES);
+            File directory = new File(picturesDir, Constants.SCREENSHOT_DIR);
+            
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            
+            // 获取用户设置的图像质量 (6-10)
+            int imageQuality = PreferenceUtil.getFrameImageQuality(this);
+            // 将6-10的范围映射到60-100的JPEG质量值
+            int quality = imageQuality * 10;
+            
+            // 生成文件名 - 使用JPEG格式以支持质量调节
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+            String fileName = "screenshot_" + suffix + "_" + timeStamp + ".jpg";
+            File file = new File(directory, fileName);
+            
+            // 保存位图
+            FileOutputStream out = null;
+            try {
+                out = new FileOutputStream(file);
+                // 使用JPEG格式,quality参数才有效(60-100)
+                // PNG格式的quality参数无效,因为PNG是无损压缩
+                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, out);
+                out.flush();
+                
+                Log.i(TAG, "套壳截图已保存: " + file.getAbsolutePath() + ", 格式: JPEG, 质量: " + quality);
+                
+                // 更新媒体库
+                updateMediaLibrary(file);
+                
+                savedFile = file;
+            } finally {
+                if (out != null) {
+                    out.close();
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "保存套壳截图失败: " + e.getMessage(), e);
             showNotification("保存失败", null);
         } finally {
             // 释放位图资源

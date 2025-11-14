@@ -161,4 +161,58 @@ public class PreferenceUtil {
         return getPreferences(context).getBoolean(
                 Constants.KEY_SOUND_EFFECT_ENABLED, Constants.DEFAULT_SOUND_EFFECT_ENABLED);
     }
+
+    /**
+     * 保存套壳截屏开关状态
+     */
+    public static void saveEnableFrameScreenshot(Context context, boolean enabled) {
+        getPreferences(context).edit()
+                .putBoolean(Constants.KEY_FRAME_SCREENSHOT_ENABLED, enabled)
+                .apply();
+    }
+
+    /**
+     * 获取套壳截屏开关状态
+     */
+    public static boolean getEnableFrameScreenshot(Context context) {
+        return getPreferences(context).getBoolean(
+                Constants.KEY_FRAME_SCREENSHOT_ENABLED, Constants.DEFAULT_FRAME_SCREENSHOT_ENABLED);
+    }
+
+    /**
+     * 保存机身颜色选择
+     */
+    public static void saveFrameColorIndex(Context context, int colorIndex) {
+        getPreferences(context).edit()
+                .putInt(Constants.KEY_FRAME_COLOR_INDEX, colorIndex)
+                .apply();
+    }
+
+    /**
+     * 获取机身颜色选择
+     */
+    public static int getFrameColorIndex(Context context) {
+        return getPreferences(context).getInt(
+                Constants.KEY_FRAME_COLOR_INDEX, Constants.DEFAULT_FRAME_COLOR_INDEX);
+    }
+
+    /**
+     * 保存套壳截屏图像质量
+     */
+    public static void saveFrameImageQuality(Context context, int quality) {
+        // 限制在有效范围内
+        quality = Math.max(Constants.MIN_FRAME_IMAGE_QUALITY, 
+                Math.min(Constants.MAX_FRAME_IMAGE_QUALITY, quality));
+        getPreferences(context).edit()
+                .putInt(Constants.KEY_FRAME_IMAGE_QUALITY, quality)
+                .apply();
+    }
+
+    /**
+     * 获取套壳截屏图像质量
+     */
+    public static int getFrameImageQuality(Context context) {
+        return getPreferences(context).getInt(
+                Constants.KEY_FRAME_IMAGE_QUALITY, Constants.DEFAULT_FRAME_IMAGE_QUALITY);
+    }
 }
